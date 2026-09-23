@@ -1,10 +1,47 @@
 import streamlit as st
 from PIL import Image
+import torch
+import numpy as np
+import os
+from torchvision import transforms
+
 from language.sarvam_client import translate_to_kannada, kannada_text_to_speech
 from advisory.advisory import get_advisory, format_advisory_text
+from models.train import build_model
+from explainability.gradcam import get_gradcam_overlay
 
 st.set_page_config(page_title="Sasya AI", page_icon="🌿", layout="centered")
 
+# --- Model Loading ---
+@st.cache_resource
+def load_disease_model():
+    weights_path = os.path.join(os.path.dirname(__file__), "models", "resnet50_sasya.pth")
+    # Using a placeholder for num_classes - this must match training!
+    # For now, we assume 2 classes based on the dummy advisory_db
+    num_classes = 2 
+    class_names = ["Maize___Common_rust", "Tomato___Early_blight"]
+    
+    if not os.path.exists(weights_path):
+        return None, class_names
+        
+    model = build_model(num_classes)
+    model.load_state_dict(torch.load(weights_path, map_location=torch.device('cpu')))
+    model.eval()
+    return model, class_names
+
+def preprocess_image(image):
+    transform = transforms.Compose([
+        transforms.Resize(256),
+        transforms.CenterCrop(224),
+        transforms.ToTensor(),
+        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+    ])
+    # Convert RGBA to RGB if necessary
+    if image.mode != "RGB":
+        image = image.convert("RGB")
+    return transform(image).unsqueeze(0)
+
+# --- UI Setup ---
 st.title("Sasya AI — ಸಸ್ಯ AI 🌿")
 st.write("Upload a leaf photo to get an instant diagnosis in Kannada.")
 
@@ -17,19 +54,42 @@ if uploaded:
         st.image(image, caption="Uploaded leaf", use_container_width=True)
     
     with st.spinner("Analyzing image..."):
-        # TODO: wire up actual model
-        dummy_prediction = "Tomato___Early_blight"
-        dummy_confidence = 0.92
+        model, class_names = load_disease_model()
         
-        # TODO: wire up actual grad-cam
-        with col2:
-            st.image(image, caption="Grad-CAM Explainability Heatmap (Mock)", use_container_width=True)
+        if model:
+            # Actual Inference
+            input_tensor = preprocess_image(image)
+            with torch.no_grad():
+                outputs = model(input_tensor)
+                probabilities = torch.nn.functional.softmax(outputs[0], dim=0)
+                confidence, predicted_idx = torch.max(probabilities, 0)
+                
+            prediction = class_names[predicted_idx.item()]
+            confidence = confidence.item()
             
-    st.success(f"**Diagnosis:** {dummy_prediction} ({dummy_confidence:.1%} confidence)")
+            # Grad-CAM
+            target_layer = model.layer4[-1]
+            rgb_img = np.array(image.resize((224, 224)))
+            if rgb_img.shape[-1] == 4: # Handle RGBA
+                rgb_img = rgb_img[..., :3]
+            
+            cam_image = get_gradcam_overlay(model, input_tensor, rgb_img, target_layer)
+            
+            with col2:
+                st.image(cam_image, caption="Grad-CAM Explainability Heatmap", use_container_width=True)
+                
+        else:
+            # Fallback to dummy data if model isn't trained yet
+            prediction = "Tomato___Early_blight"
+            confidence = 0.92
+            with col2:
+                st.image(image, caption="Grad-CAM Explainability Heatmap (Mock - Model not found)", use_container_width=True)
+            
+    st.success(f"**Diagnosis:** {prediction} ({confidence:.1%} confidence)")
     
     st.subheader("Treatment Advisory")
     # Fetch advisory from JSON DB
-    advisory_data = get_advisory(dummy_prediction)
+    advisory_data = get_advisory(prediction)
     dummy_advisory_en = format_advisory_text(advisory_data)
     
     st.write(f"**Cause:** {advisory_data.get('cause', 'Unknown')}")
