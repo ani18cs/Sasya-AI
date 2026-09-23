@@ -20,11 +20,27 @@ def prepare_data():
     print("Step 1: Downloading PlantVillage Dataset...")
     download_kaggle_dataset("vipoooool/new-plant-diseases-dataset", data_dir)
     
-    print("Step 2: Note - Placeholders for additional datasets (PlantDoc, FieldPlant, Mendeley)")
-    print("These will require custom auth (HuggingFace token, Roboflow API key) when running locally.")
+    print("Step 2: Filtering dataset for Maize, Tomato, Grape, and Potato...")
+    # The Kaggle unzip usually creates a nested folder structure
+    # Expected: data/New Plant Diseases Dataset(Augmented)/New Plant Diseases Dataset(Augmented)/train/...
+    base_extract = os.path.join(data_dir, "New Plant Diseases Dataset(Augmented)", "New Plant Diseases Dataset(Augmented)")
     
-    # TODO: Implement consolidation logic to merge folders into a single train/val split structure
-    # taking into account different image resolutions and formats.
+    target_crops = ["Corn", "Tomato", "Grape", "Potato"]
+    
+    for split in ["train", "valid"]:
+        src_split = os.path.join(base_extract, split)
+        dst_split = os.path.join(data_dir, split)
+        os.makedirs(dst_split, exist_ok=True)
+        
+        if os.path.exists(src_split):
+            for class_name in os.listdir(src_split):
+                if any(crop in class_name for crop in target_crops):
+                    src_class = os.path.join(src_split, class_name)
+                    dst_class = os.path.join(dst_split, class_name)
+                    if not os.path.exists(dst_class):
+                        shutil.move(src_class, dst_class)
+                        
+    print("Data prep complete. Filtered classes are in data/train and data/valid.")
 
 if __name__ == "__main__":
     prepare_data()

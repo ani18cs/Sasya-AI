@@ -26,6 +26,8 @@ def translate_to_kannada(english_text: str) -> str:
     )
     return response.translated_text
 
+import base64
+
 def kannada_text_to_speech(kannada_text: str, output_path="advisory_audio.wav"):
     client = get_client()
     if not client:
@@ -37,8 +39,9 @@ def kannada_text_to_speech(kannada_text: str, output_path="advisory_audio.wav"):
     response = client.text_to_speech.convert(
         text=kannada_text,
         target_language_code="kn-IN",
+        speaker="meera",
         model="bulbul:v3"
     )
     with open(output_path, "wb") as f:
-        f.write(response.audio) 
+        f.write(base64.b64decode(response.audios[0])) 
     return output_path

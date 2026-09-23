@@ -100,10 +100,10 @@ def train_model(data_dir, num_epochs=10, batch_size=32):
             print(f"{phase.capitalize()} Loss: {epoch_loss:.4f} Acc: {epoch_acc:.4f}")
 
     print("Training complete!")
-    os.makedirs(os.path.join(data_dir, "..", "weights"), exist_ok=True)
-    torch.save(model.state_dict(), os.path.join(data_dir, "..", "weights", "resnet50_sasya.pth"))
+    weights_path = os.path.join(os.path.dirname(__file__), "resnet50_sasya.pth")
+    torch.save(model.state_dict(), weights_path)
 
 if __name__ == "__main__":
-    data_path = os.path.join(os.path.dirname(__file__), "..", "data", "new plant diseases dataset(augmented)", "New Plant Diseases Dataset(Augmented)")
-    # train_model(data_path)
+    data_path = os.path.join(os.path.dirname(__file__), "..", "data")
+    train_model(data_path)
 
