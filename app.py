@@ -1,6 +1,7 @@
 import streamlit as st
 from PIL import Image
 from language.sarvam_client import translate_to_kannada, kannada_text_to_speech
+from advisory.advisory import get_advisory, format_advisory_text
 
 st.set_page_config(page_title="Sasya AI", page_icon="🌿", layout="centered")
 
@@ -27,8 +28,13 @@ if uploaded:
     st.success(f"**Diagnosis:** {dummy_prediction} ({dummy_confidence:.1%} confidence)")
     
     st.subheader("Treatment Advisory")
-    # TODO: wire up actual advisory JSON
-    dummy_advisory_en = "Remove and destroy infected leaves. Apply a copper-based fungicide. Avoid overhead watering."
+    # Fetch advisory from JSON DB
+    advisory_data = get_advisory(dummy_prediction)
+    dummy_advisory_en = format_advisory_text(advisory_data)
+    
+    st.write(f"**Cause:** {advisory_data.get('cause', 'Unknown')}")
+    st.write(f"**Treatment:** {advisory_data.get('treatment', 'Unknown')}")
+    st.write(f"**Prevention:** {advisory_data.get('prevention', 'Unknown')}")
     
     # Translate and TTS
     with st.spinner("Translating to Kannada..."):
