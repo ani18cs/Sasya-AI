@@ -8,7 +8,7 @@ import shutil
 def download_kaggle_dataset(dataset_name, download_path):
     print(f"Downloading {dataset_name} from Kaggle...")
     try:
-        subprocess.run(["kaggle", "datasets", "download", "-d", dataset_name, "-p", download_path, "--unzip"], check=True)
+        subprocess.run(["python", "-m", "kaggle", "datasets", "download", "-d", dataset_name, "-p", download_path, "--unzip"], check=True)
         print("Download and unzip complete.")
     except Exception as e:
         print(f"Error downloading {dataset_name}. Make sure Kaggle API is configured correctly. {e}")
@@ -40,7 +40,22 @@ def prepare_data():
                     if not os.path.exists(dst_class):
                         shutil.move(src_class, dst_class)
                         
-    print("Data prep complete. Filtered classes are in data/train and data/valid.")
+    print("Step 3: Verifying final class list and image counts...")
+    for split in ["train", "valid"]:
+        split_dir = os.path.join(data_dir, split)
+        if not os.path.exists(split_dir):
+            continue
+        print(f"\n--- {split.upper()} SET ---")
+        classes = sorted(os.listdir(split_dir))
+        print(f"Total classes: {len(classes)}")
+        for cls in classes:
+            count = len(os.listdir(os.path.join(split_dir, cls)))
+            warning = " (⚠️ LOW COUNT)" if count < 200 else ""
+            print(f"  {cls}: {count} images{warning}")
+                        
+    print("\nData prep complete. Filtered classes are in data/train and data/valid.")
 
 if __name__ == "__main__":
+    from dotenv import load_dotenv
+    load_dotenv(os.path.join(os.path.dirname(__file__), "..", ".env"))
     prepare_data()

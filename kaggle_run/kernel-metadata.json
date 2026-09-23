@@ -1,0 +1,17 @@
+{
+  "id": "anisingh18/sasya-baseline-training-v3",
+  "title": "sasya-baseline-training-v3",
+  "code_file": "baseline_training.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": "true",
+  "enable_gpu": "true",
+  "enable_tpu": "false",
+  "enable_internet": "true",
+  "dataset_sources": [
+    "vipoooool/new-plant-diseases-dataset"
+  ],
+  "competition_sources": [],
+  "kernel_sources": [],
+  "model_sources": []
+}
