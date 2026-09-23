@@ -1,0 +1,12 @@
+{
+    "Tomato___Early_blight": {
+        "cause": "Fungal infection (Alternaria solani), spreads in warm humid conditions.",
+        "treatment": "Remove and destroy infected leaves. Apply a copper-based fungicide. Avoid overhead watering.",
+        "prevention": "Rotate crops yearly. Ensure adequate spacing between plants for airflow."
+    },
+    "Maize___Common_rust": {
+        "cause": "Fungal pathogen (Puccinia sorghi), spreads via airborne spores.",
+        "treatment": "Apply fungicide at early symptom onset. Remove severely infected plants.",
+        "prevention": "Plant rust-resistant maize varieties where available. Avoid dense planting."
+    }
+}

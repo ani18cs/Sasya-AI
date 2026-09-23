@@ -1,0 +1,9 @@
+torch
+torchvision
+grad-cam
+sarvamai
+streamlit
+scikit-learn
+pillow
+numpy
+kaggle
