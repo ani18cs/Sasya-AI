@@ -89,16 +89,19 @@ if uploaded:
             prediction = class_names[predicted_idx.item()]
             confidence = confidence.item()
             
-            # Grad-CAM
-            target_layer = model.layer4[-1]
-            rgb_img = np.array(image.resize((224, 224)))
-            if rgb_img.shape[-1] == 4: # Handle RGBA
-                rgb_img = rgb_img[..., :3]
-            
-            cam_image = get_gradcam_overlay(model, input_tensor, rgb_img, target_layer)
-            
-            with col2:
-                st.image(cam_image, caption="Grad-CAM Explainability Heatmap", use_container_width=True)
+            # Grad-CAM with safe fallback
+            try:
+                target_layer = model.layer4[-1]
+                rgb_img = np.array(image.resize((224, 224)))
+                if rgb_img.shape[-1] == 4:  # Handle RGBA
+                    rgb_img = rgb_img[..., :3]
+                cam_image = get_gradcam_overlay(model, input_tensor, rgb_img, target_layer)
+                with col2:
+                    st.image(cam_image, caption="Grad-CAM Explainability Heatmap", use_container_width=True)
+            except Exception as e:
+                st.warning("Grad-CAM generation failed; proceeding without heatmap.")
+                with col2:
+                    st.image(image, caption="Original Image (Grad-CAM unavailable)", use_container_width=True)
                 
         else:
             # Fallback to dummy data if model isn't trained yet
