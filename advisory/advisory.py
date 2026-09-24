@@ -27,6 +27,13 @@ def get_advisory(disease_class: str) -> dict:
         "prevention": "Maintain standard crop hygiene and monitor regularly."
     }
 
-def format_advisory_text(advisory: dict) -> str:
+def format_advisory_text(advisory: dict, severity: str = None) -> str:
     """Formats the advisory dict into a single readable paragraph for translation/TTS."""
-    return f"Cause: {advisory.get('cause', 'Unknown')}. Treatment: {advisory.get('treatment', 'Unknown')}. Prevention: {advisory.get('prevention', 'Unknown')}."
+    treatment = advisory.get('treatment', 'Unknown')
+    
+    # Override treatment if severity-specific text exists
+    if severity and 'treatment_severity' in advisory:
+        if severity in advisory['treatment_severity']:
+            treatment = advisory['treatment_severity'][severity]
+            
+    return f"Cause: {advisory.get('cause', 'Unknown')}\n\nTreatment: {treatment}\n\nPrevention: {advisory.get('prevention', 'Unknown')}"

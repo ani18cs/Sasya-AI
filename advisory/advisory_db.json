@@ -1,18 +1,23 @@
 {
     "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot": {
-        "cause": "Requires Agronomist Verification.",
-        "treatment": "Requires Agronomist Verification.",
-        "prevention": "Requires Agronomist Verification."
+        "cause": "Fungal infection by Cercospora zeae-maydis, favored by high humidity and warm temperatures.",
+        "treatment": "Apply fungicides containing strobilurins or triazoles (e.g., Azoxystrobin, Propiconazole) at disease onset.",
+        "prevention": "Use resistant maize hybrids and practice crop rotation."
     },
     "Corn_(maize)___Common_rust_": {
         "cause": "Fungal pathogen (Puccinia sorghi), spreads via airborne spores.",
         "treatment": "Apply Mancozeb or Kresoxim-methyl 44.3% SC foliar spray at the first sign of disease to prevent spread to top leaves.",
+        "treatment_severity": {
+            "Mild": "Monitor closely. Apply a prophylactic spray of Mancozeb if conditions are humid.",
+            "Moderate": "Apply Mancozeb or Kresoxim-methyl 44.3% SC foliar spray to prevent spread to top leaves.",
+            "Severe": "Immediate application of Kresoxim-methyl 44.3% SC at higher recommended dose. Remove heavily infected lower leaves."
+        },
         "prevention": "Plant rust-resistant maize varieties where available. Practice crop rotation with non-host crops like pulses."
     },
     "Corn_(maize)___Northern_Leaf_Blight": {
-        "cause": "Requires Agronomist Verification.",
-        "treatment": "Requires Agronomist Verification.",
-        "prevention": "Requires Agronomist Verification."
+        "cause": "Fungal infection by Exserohilum turcicum, thrives in moderate temperatures and heavy dews.",
+        "treatment": "Foliar fungicide applications (e.g., Mancozeb, Pyraclostrobin) when lesions first appear.",
+        "prevention": "Plant resistant varieties and till residue to reduce overwintering inoculum."
     },
     "Corn_(maize)___healthy": {
         "cause": "None. The plant is healthy.",
@@ -20,49 +25,59 @@
         "prevention": "Maintain regular watering and fertilization schedules."
     },
     "Tomato___Bacterial_spot": {
-        "cause": "Requires Agronomist Verification.",
-        "treatment": "Requires Agronomist Verification.",
-        "prevention": "Requires Agronomist Verification."
+        "cause": "Bacterial infection by Xanthomonas campestris, spread by splashing rain and contaminated seeds.",
+        "treatment": "Apply copper-based bactericides combined with Mancozeb to reduce spread.",
+        "prevention": "Use certified disease-free seeds and avoid overhead watering."
     },
     "Tomato___Early_blight": {
         "cause": "Fungal infection (Alternaria solani), spreads in warm humid conditions.",
         "treatment": "Spray Mancozeb 75% WP @ 2g per liter of water. Apply twice at weekly intervals upon noticing disease incidence.",
+        "treatment_severity": {
+            "Mild": "Prune lower infected leaves. Apply copper-based fungicide as a preventative measure.",
+            "Moderate": "Spray Mancozeb 75% WP @ 2g per liter of water. Apply twice at weekly intervals.",
+            "Severe": "Apply Mancozeb 75% WP @ 2g per liter immediately. Destroy severely blighted plants to protect remaining crop."
+        },
         "prevention": "Rotate crops yearly. Ensure adequate spacing between plants for airflow."
     },
     "Tomato___Late_blight": {
-        "cause": "Requires Agronomist Verification.",
-        "treatment": "Requires Agronomist Verification.",
-        "prevention": "Requires Agronomist Verification."
+        "cause": "Oomycete pathogen Phytophthora infestans, rapidly spreads in cool, wet conditions.",
+        "treatment": "Apply systemic fungicides (e.g., Metalaxyl, Cymoxanil) combined with protectants like Chlorothalonil.",
+        "treatment_severity": {
+            "Mild": "Apply contact fungicides (e.g., Chlorothalonil) as soon as mild lesions appear.",
+            "Moderate": "Apply systemic fungicides (e.g., Metalaxyl) to control spreading infection.",
+            "Severe": "Immediate systemic fungicide application. Rogue and destroy severely infected plants immediately."
+        },
+        "prevention": "Eliminate cull piles, control volunteer plants, and ensure good field drainage."
     },
     "Tomato___Leaf_Mold": {
-        "cause": "Requires Agronomist Verification.",
-        "treatment": "Requires Agronomist Verification.",
-        "prevention": "Requires Agronomist Verification."
+        "cause": "Fungal infection by Passalora fulva, primarily an issue in high-humidity environments like greenhouses.",
+        "treatment": "Apply fungicides such as Chlorothalonil or Copper fungicides at the first sign of symptoms.",
+        "prevention": "Ensure adequate ventilation and spacing to lower humidity around plants."
     },
     "Tomato___Septoria_leaf_spot": {
-        "cause": "Requires Agronomist Verification.",
-        "treatment": "Requires Agronomist Verification.",
-        "prevention": "Requires Agronomist Verification."
+        "cause": "Fungal infection by Septoria lycopersici, spores spread via rain splash or overhead irrigation.",
+        "treatment": "Spray with protectant fungicides like Chlorothalonil or Mancozeb on a 7-10 day schedule.",
+        "prevention": "Mulch around the base of plants and remove infected lower leaves to prevent splash spread."
     },
     "Tomato___Spider_mites Two-spotted_spider_mite": {
-        "cause": "Requires Agronomist Verification.",
-        "treatment": "Requires Agronomist Verification.",
-        "prevention": "Requires Agronomist Verification."
+        "cause": "Infestation by Tetranychus urticae, often exacerbated by hot, dry conditions.",
+        "treatment": "Apply specific miticides (e.g., Abamectin, Spiromesifen) or insecticidal soaps. Ensure coverage on leaf undersides.",
+        "prevention": "Maintain adequate plant hydration and use predatory mites (e.g., Phytoseiulus persimilis) as biocontrol."
     },
     "Tomato___Target_Spot": {
-        "cause": "Requires Agronomist Verification.",
-        "treatment": "Requires Agronomist Verification.",
-        "prevention": "Requires Agronomist Verification."
+        "cause": "Fungal infection by Corynespora cassiicola, favored by high humidity and prolonged leaf wetness.",
+        "treatment": "Apply targeted systemic fungicides such as Azoxystrobin or Difenoconazole.",
+        "prevention": "Avoid working in fields when plants are wet and ensure good canopy airflow."
     },
     "Tomato___Tomato_Yellow_Leaf_Curl_Virus": {
-        "cause": "Requires Agronomist Verification.",
-        "treatment": "Requires Agronomist Verification.",
-        "prevention": "Requires Agronomist Verification."
+        "cause": "Viral infection caused by TYLCV, transmitted primarily by the sweetpotato whitefly (Bemisia tabaci).",
+        "treatment": "There is no cure for the virus. Treatment focuses on vector control: apply systemic insecticides (e.g., Imidacloprid) to manage whitefly populations.",
+        "prevention": "Plant resistant tomato varieties, use reflective mulches, and apply fine-mesh netting."
     },
     "Tomato___Tomato_mosaic_virus": {
-        "cause": "Requires Agronomist Verification.",
-        "treatment": "Requires Agronomist Verification.",
-        "prevention": "Requires Agronomist Verification."
+        "cause": "Viral infection by ToMV, highly contagious and spread through mechanical contact, contaminated tools, or seeds.",
+        "treatment": "No chemical treatment available. Infected plants must be immediately uprooted and destroyed.",
+        "prevention": "Disinfect tools with bleach, wash hands frequently, and use certified virus-free seeds."
     },
     "Tomato___healthy": {
         "cause": "None. The plant is healthy.",
@@ -70,19 +85,19 @@
         "prevention": "Maintain regular watering and fertilization schedules."
     },
     "Grape___Black_rot": {
-        "cause": "Requires Agronomist Verification.",
-        "treatment": "Requires Agronomist Verification.",
-        "prevention": "Requires Agronomist Verification."
+        "cause": "Fungal infection by Guignardia bidwellii, requires wet leaves to infect.",
+        "treatment": "Apply protectant fungicides like Mancozeb or systemic options like Myclobutanil during early growth stages.",
+        "prevention": "Prune out infected canes, destroy mummified berries, and maintain an open canopy."
     },
     "Grape___Esca_(Black_Measles)": {
-        "cause": "Requires Agronomist Verification.",
-        "treatment": "Requires Agronomist Verification.",
-        "prevention": "Requires Agronomist Verification."
+        "cause": "Complex of fungal pathogens (including Phaeomoniella chlamydospora) infecting the vascular tissue.",
+        "treatment": "No effective chemical cure. Some mitigation through trunk renewal or applying wound protectants post-pruning.",
+        "prevention": "Avoid pruning during wet weather and apply pruning wound sealants to prevent spore entry."
     },
     "Grape___Leaf_blight_(Isariopsis_Leaf_Spot)": {
-        "cause": "Requires Agronomist Verification.",
-        "treatment": "Requires Agronomist Verification.",
-        "prevention": "Requires Agronomist Verification."
+        "cause": "Fungal infection by Pseudocercospora vitis, thrives in late summer during warm, humid periods.",
+        "treatment": "Apply copper-based fungicides or broad-spectrum fungicides such as Mancozeb upon early detection.",
+        "prevention": "Remove fallen debris and optimize trellising for maximum air circulation."
     },
     "Grape___healthy": {
         "cause": "None. The plant is healthy.",
@@ -97,6 +112,11 @@
     "Potato___Late_blight": {
         "cause": "Fungal or oomycete pathogen.",
         "treatment": "Apply appropriate contact or systemic fungicide (e.g., Mancozeb). Consult local agricultural extension officer.",
+        "treatment_severity": {
+            "Mild": "Apply contact fungicides like Mancozeb at first sign of symptoms.",
+            "Moderate": "Apply systemic fungicides (e.g., Metalaxyl-M) combined with a protectant.",
+            "Severe": "Immediate aggressive systemic spraying. Destroy heavily infected foliage to protect tubers."
+        },
         "prevention": "Use certified disease-free seed tubers. Implement crop rotation."
     },
     "Potato___healthy": {

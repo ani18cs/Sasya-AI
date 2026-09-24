@@ -87,7 +87,7 @@ def main():
     
     cam_image = get_gradcam_overlay(model, input_tensor, rgb_img, target_layer)
     cam_path = os.path.join(os.path.dirname(__file__), "test_cam_output.png")
-    cam_image.save(cam_path)
+    Image.fromarray(cam_image).save(cam_path)
     print(f"Grad-CAM saved to: {cam_path}")
     
     print("Fetching advisory...")

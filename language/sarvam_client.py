@@ -38,8 +38,8 @@ def kannada_text_to_speech(kannada_text: str, output_path="advisory_audio.wav"):
         
     response = client.text_to_speech.convert(
         text=kannada_text,
-        target_language_code="kn-IN",
-        speaker="meera",
+        language_code="kn-IN",
+        speaker="shubh",
         model="bulbul:v3"
     )
     with open(output_path, "wb") as f:
